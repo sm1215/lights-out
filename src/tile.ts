@@ -1,4 +1,4 @@
-import { Actor, Color, vec } from "excalibur";
+import { Actor, Color } from "excalibur";
 
 export class Tile extends Actor {
   activated = false;
@@ -6,8 +6,10 @@ export class Tile extends Actor {
     activated: new Color(75, 200, 75),
     deactivated: new Color(175, 50, 50)
   };
+  row = null;
+  column = null;
 
-  constructor({pos, height, width}) {
+  constructor({pos, height, width, row, column}) {
     super({
       pos,
       width,
@@ -15,17 +17,19 @@ export class Tile extends Actor {
       color: Color.Transparent
     });
     this.color = this.colors.deactivated;
+    this.row = row;
+    this.column = column;
   }
 
   onInitialize() {
     this.on('pointerup', () => {
-      this.activated = !this.activated;
-      this.color = this.activated ? this.colors.activated : this.colors.deactivated;
-
-
-
-      // debugging
-      console.log('x, y, h, w', this.pos.x, this.pos.y, this.height, this.width);
+      this.toggleActivated();
+      this.parent?.updateGrid(this.row, this.column);
     });
+  }
+
+  toggleActivated() {
+    this.activated = !this.activated;
+    this.color = this.activated ? this.colors.activated : this.colors.deactivated;
   }
 }
