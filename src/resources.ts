@@ -1,8 +1,10 @@
 import { ImageSource, Loader } from "excalibur";
-import sword from "./images/sword.png";
+import bulbOff from "./images/bulb-off.png";
+import bulbOn from "./images/bulb-on.png";
 
 export const Resources = {
-  Sword: new ImageSource(sword)
+  BulbOff: new ImageSource(bulbOff),
+  BulbOn: new ImageSource(bulbOn)
 } as const;
 
 export const loader = new Loader();
