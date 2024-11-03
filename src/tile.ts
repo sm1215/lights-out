@@ -4,8 +4,8 @@ import { Resources } from "./resources";
 export class Tile extends Actor {
   activated = false;
   colors = {
-    activated: new Color(75, 200, 75),
-    deactivated: new Color(175, 50, 50)
+    on: new Color(75, 200, 75),
+    off: new Color(175, 50, 50)
   };
   row = null;
   column = null;
@@ -21,7 +21,7 @@ export class Tile extends Actor {
       height,
       color: Color.Transparent
     });
-    this.color = this.colors.deactivated;
+    this.color = this.colors.off;
     this.row = row;
     this.column = column;
     this.graphics.add(this.bulb.on);
@@ -38,7 +38,7 @@ export class Tile extends Actor {
 
   toggleActivated() {
     this.activated = !this.activated;
-    this.color = this.activated ? this.colors.activated : this.colors.deactivated;
+    this.color = this.activated ? this.colors.on : this.colors.off;
     this.graphics.use(this.activated ? this.bulb.on : this.bulb.off);
   }
 }

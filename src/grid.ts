@@ -1,10 +1,10 @@
-import { Actor, Color, vec } from "excalibur";
-import { Tile } from "./tile";
+import { Actor } from "excalibur";
 
 export class Grid extends Actor {
   gridSize = null;
+  engineCtx = null;
 
-  constructor({pos, width, height, gridSize}) {
+  constructor({pos, width, height, gridSize, engineCtx}) {
     super({
       pos,
       width,
@@ -12,6 +12,7 @@ export class Grid extends Actor {
       gridSize
     });
     this.gridSize = gridSize;
+    this.engineCtx = engineCtx;
   }
 
   updateGrid(row, column) {
@@ -28,9 +29,19 @@ export class Grid extends Actor {
     );
 
     const toToggle = this.children.filter(({row: childRow, column: childColumn}) =>
-      neighbors.some(([neighborRow, neighborColumn]) => childRow === neighborRow && childColumn === neighborColumn)
+      neighbors.some(([neighborRow, neighborColumn]) =>
+        childRow === neighborRow && childColumn === neighborColumn)
     );
 
     toToggle.forEach((tile) => tile.toggleActivated());
+    const hasWon = this.hasWon();
+    
+    if (hasWon) {
+      this.engineCtx.events.emit('gameWon');
+    }
+  }
+
+  hasWon() {
+    return this.children.every(({activated}) => activated ===  true);
   }
 }

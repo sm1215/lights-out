@@ -1,7 +1,8 @@
-import { Engine, vec } from "excalibur";
+import { Engine, vec, FadeInOut, CrossFade } from "excalibur";
 import { Grid } from "./grid";
 import { Tile } from "./tile";
 import { loader } from "./resources";
+import { Win } from "./scenes/win";
 
 const tileSize = {
   width: 100,
@@ -15,14 +16,27 @@ const gridSize = {
 
 class Game extends Engine {
     constructor() {
-      super({width: 800, height: 600});
+      super({
+        width: 800,
+        height: 600,
+        scenes: {
+          win: {
+            scene: Win,
+            transitions: {
+              out: new FadeInOut({ duration: 500, direction: 'out' }),
+              in: new CrossFade({ duration: 250, direction: 'in', blockInput: true })
+            }
+          }
+        }
+      });
     }
     initialize() {
       const grid = new Grid({
         pos: vec(tileSize.margin, tileSize.margin),
         width: (tileSize.width + tileSize.margin * gridSize.columns) + tileSize.margin,
         height: (tileSize.height + tileSize.margin * gridSize.rows) + tileSize.margin,
-        gridSize
+        gridSize,
+        engineCtx: this
       });
 
       for (let row = 0; row < gridSize.rows; row++) {
@@ -40,6 +54,11 @@ class Game extends Engine {
         }
       }
       this.add(grid);
+
+      this.events.on('gameWon', () => {
+        this.goToScene('win');
+      });
+
       this.start(loader);
     }
   }
