@@ -6,6 +6,7 @@ export class Win extends Scene {
 
     public onActivate(engine: Engine) {
       const winText = new Label({
+        // Referencing a truck racing game meme
         text: 'You\'re Are Winner!',
         pos: vec( 400, 200 ),
         font: new Font ({
