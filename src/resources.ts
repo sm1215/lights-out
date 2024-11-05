@@ -1,10 +1,10 @@
 import { ImageSource, Loader } from "excalibur";
-import bulbOff from "./images/bulb-off.png";
-import bulbOn from "./images/bulb-on.png";
+import candleOff from "./images/candle-off.png";
+import candleOn from "./images/candle-on.png";
 
 export const Resources = {
-  BulbOff: new ImageSource(bulbOff),
-  BulbOn: new ImageSource(bulbOn)
+  CandleOff: new ImageSource(candleOff),
+  CandleOn: new ImageSource(candleOn)
 } as const;
 
 export const loader = new Loader();

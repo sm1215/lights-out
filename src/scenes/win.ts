@@ -1,24 +1,23 @@
-import { Scene, Label, vec, FontUnit, TextAlign, Font } from "excalibur";
-import { ReplayButton } from "../ui/replay";
+import { Scene, SceneActivationContext } from "excalibur";
 
 export class Win extends Scene {
-    private _replayButton: ReplayButton;
+    replayButton;
+    context: SceneActivationContext;
 
-    public onActivate(engine: Engine) {
-      const winText = new Label({
-        // Referencing a truck racing game meme
-        text: 'You\'re Are Winner!',
-        pos: vec( 400, 200 ),
-        font: new Font ({
-          family: 'Arial',
-          size: 40,
-          unit: FontUnit.Px,
-          textAlign: TextAlign.Center
-        })
-      });
-      this.add(winText);
+    public onActivate(context: SceneActivationContext): void {
+      this.context = context;
+      document.querySelector('body').classList.add('win');
 
-      this._replayButton = new ReplayButton();
-      this.add(this._replayButton);
+      this.replayButton = document.querySelector('#replay-button');
+      this.replayButton.addEventListener('click', this.replayEvent);
+    }
+
+    public onDeactivate(context: SceneActivationContext): void {
+      document.querySelector('body').classList.remove('win');
+      this.replayButton.removeEventListener('click', this.replayEvent);
+    }
+
+    private replayEvent = (): void => {
+      this.context.engine.emit('playGame');
     }
 }
