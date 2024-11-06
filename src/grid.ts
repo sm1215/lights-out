@@ -1,18 +1,32 @@
-import { Actor, Engine } from "excalibur";
+import { Actor, Engine, vec } from "excalibur";
 
 export class Grid extends Actor {
+  canvasSize = null;
   gridSize = null;
+  tileSize = null;
   engine: Engine;
   activationChance = 0.3;
 
-  constructor({pos, width, height, gridSize}) {
+  constructor({canvasSize, gridSize, tileSize}) {
+    const {canvasWidth, canvasHeight} = canvasSize;
+    const {rows, columns} = gridSize;
+    const {margin: tileMargin, width: tileWidth, height: tileHeight} = tileSize;
+
+    const gridWidth = ((tileWidth + tileMargin) * columns) + tileMargin;
+    const gridHeight = ((tileHeight + tileMargin) * rows) + tileMargin;
+
+    const x = (canvasWidth - gridWidth) / 2 + tileMargin;
+    const y = (canvasHeight - gridHeight) / 2 + tileMargin;
+
     super({
-      pos,
-      width,
-      height,
-      gridSize
+      pos: vec(x, y),
+      width: gridWidth,
+      height: gridHeight
     });
+
+    this.canvasSize = canvasSize;
     this.gridSize = gridSize;
+    this.tileSize = tileSize;
   }
 
   private get hasWon(): boolean {

@@ -14,11 +14,12 @@ const gridSize = {
 
 export class Play extends Scene {
     public onActivate(context: SceneActivationContext) {
+      const {width: canvasWidth, height: canvasHeight} = context.engine.canvas;
+
       const grid = new Grid({
-        pos: vec(tileSize.margin, tileSize.margin),
-        width: (tileSize.width + tileSize.margin * gridSize.columns) + tileSize.margin,
-        height: (tileSize.height + tileSize.margin * gridSize.rows) + tileSize.margin,
-        gridSize
+        canvasSize: {canvasWidth, canvasHeight},
+        gridSize,
+        tileSize
       });
     
       for (let row = 0; row < gridSize.rows; row++) {
