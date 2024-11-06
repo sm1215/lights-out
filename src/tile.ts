@@ -1,4 +1,4 @@
-import { Actor, Color } from "excalibur";
+import { Actor, Color, vec } from "excalibur";
 import { Resources } from "./resources";
 
 export class Tile extends Actor {
@@ -15,9 +15,14 @@ export class Tile extends Actor {
     off: this.graphics.add('candleOff', Resources.CandleOff.toSprite())
   };
 
-  constructor({pos, height, width, row, column}) {
+  constructor({tileSize, row, column}) {
+    const {width, height, margin} = tileSize;
+
+    const x = ((width * column) + width / 2) + margin * column + 1;
+    const y = ((height * row) + height / 2) + margin * row + 1;
+
     super({
-      pos,
+      pos: vec(x, y),
       width,
       height,
       color: Color.Transparent

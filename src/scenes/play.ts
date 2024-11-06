@@ -24,12 +24,8 @@ export class Play extends Scene {
     
       for (let row = 0; row < gridSize.rows; row++) {
         for (let column = 0; column < gridSize.columns; column++) {
-          const x = ((tileSize.width * column) + tileSize.width / 2) + tileSize.margin * column + 1;
-          const y = ((tileSize.height * row) + tileSize.height / 2) + tileSize.margin * row + 1;
           const tile = new Tile({
-            pos: vec(x, y),
-            height: tileSize.height,
-            width: tileSize.width,
+            tileSize,
             row,
             column
           });
