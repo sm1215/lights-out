@@ -2,6 +2,22 @@
   body {
     background-color: black;
   }
+  .start-button {
+    pointer-events: all;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 32px;
+    letter-spacing: 0.75px;
+    width: 86px;
+    background: silver;
+    border: 2px solid brown;
+    color: brown;
+  }
+  .start-button:hover {
+    background: brown;
+    border: 2px solid silver;
+    color: silver;
+  }
   .win-ui {
     display: none;
   }
