@@ -5,7 +5,6 @@ export class Grid extends Actor {
   gridSize = null;
   tileSize = null;
   engine: Engine;
-  activationChance = 0.3;
 
   constructor({canvasSize, gridSize, tileSize}) {
     const {canvasWidth, canvasHeight} = canvasSize;
@@ -35,14 +34,16 @@ export class Grid extends Actor {
 
   onInitialize(engine: Engine): void {
     this.engine = engine;
-    this.randomizeTiles();
+    if (engine.randomizeTiles) {
+      this.randomizeTiles(engine.activationChance);
+    }
   }
 
-  private randomizeTiles(): void {
+  private randomizeTiles(activationChance): void {
     this.children
       .filter(({actorType}) => actorType === 'Tile')
       .forEach((tile) => {
-        if (Math.random() < this.activationChance) {
+        if (Math.random() < activationChance) {
           tile.toggleActivated();
         }
       });

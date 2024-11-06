@@ -4,8 +4,11 @@ import { Win } from "./scenes/win";
 import { Play } from "./scenes/play";
 
 class Game extends Engine {
+    randomizeTiles = true;
+    activationChance = 0.4;
     constructor() {
       super({
+        canvasElementId: 'game',
         width: 304,
         height: 304,
         backgroundColor: new Color(230, 230, 255),

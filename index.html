@@ -8,9 +8,16 @@
     <title>Lights Out</title>
   </head>
   <body>
-    <div class="win-ui">
-      <h1>You Win!</h1>
-      <button id="replay-button">Replay</button>
+    <div id="wrapper">
+      <div class="play-ui">
+        <h1>Lights Out</h1>
+        <p>Try to light all candles to win</p>
+      </div>
+      <div class="win-ui">
+        <h1>You Win!</h1>
+        <button id="replay-button">Replay</button>
+      </div>
+      <canvas id="game"></canvas>
     </div>
     <script type="module" src="./src/main.ts"></script>
   </body>
