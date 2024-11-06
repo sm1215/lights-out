@@ -1,4 +1,4 @@
-import { Engine, vec, FadeInOut, CrossFade } from "excalibur";
+import { Engine, FadeInOut, CrossFade, Color } from "excalibur";
 import { loader } from "./resources";
 import { Win } from "./scenes/win";
 import { Play } from "./scenes/play";
@@ -6,8 +6,9 @@ import { Play } from "./scenes/play";
 class Game extends Engine {
     constructor() {
       super({
-        width: 800,
-        height: 600,
+        width: 304,
+        height: 304,
+        backgroundColor: new Color(230, 230, 255),
         scenes: {
           playGame: {
             scene: Play,

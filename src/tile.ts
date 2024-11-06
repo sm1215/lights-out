@@ -18,8 +18,8 @@ export class Tile extends Actor {
   constructor({tileSize, row, column}) {
     const {width, height, margin} = tileSize;
 
-    const x = ((width * column) + width / 2) + margin * column + 1;
-    const y = ((height * row) + height / 2) + margin * row + 1;
+    const x = ((width * column) + width / 2) + margin * (column + 1);
+    const y = ((height * row) + height / 2) + margin * (row + 1);
 
     super({
       pos: vec(x, y),

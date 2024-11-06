@@ -15,8 +15,8 @@ export class Grid extends Actor {
     const gridWidth = ((tileWidth + tileMargin) * columns) + tileMargin;
     const gridHeight = ((tileHeight + tileMargin) * rows) + tileMargin;
 
-    const x = (canvasWidth - gridWidth) / 2 + tileMargin;
-    const y = (canvasHeight - gridHeight) / 2 + tileMargin;
+    const x = (canvasWidth - gridWidth) / 2;
+    const y = (canvasHeight - gridHeight) / 2;
 
     super({
       pos: vec(x, y),
