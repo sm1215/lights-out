@@ -4,7 +4,7 @@ import { Win } from "./scenes/win";
 import { Play } from "./scenes/play";
 
 class Game extends Engine {
-    randomizeTiles = false;
+    randomizeTiles = true;
     activationChance = 0.4;
     constructor() {
       super({
