@@ -1,13 +1,16 @@
 import { Actor, Engine, vec } from "excalibur";
+import { Grid } from '../interface/index';
+import { TileActor } from './tile';
+import { game } from '../main';
 
-export class Grid extends Actor {
-  canvasSize = null;
-  gridSize = null;
-  tileSize = null;
-  engine: Engine;
+export class GridActor extends Actor {
+  canvasSize;
+  gridSize;
+  tileSize;
+  engine: Engine | null;
 
-  constructor({canvasSize, gridSize, tileSize}) {
-    const {canvasWidth, canvasHeight} = canvasSize;
+  constructor({canvasSize, gridSize, tileSize}: Grid) {
+    const {width: canvasWidth, height: canvasHeight} = canvasSize;
     const {rows, columns} = gridSize;
     const {margin: tileMargin, width: tileWidth, height: tileHeight} = tileSize;
 
@@ -26,21 +29,23 @@ export class Grid extends Actor {
     this.canvasSize = canvasSize;
     this.gridSize = gridSize;
     this.tileSize = tileSize;
+    this.engine = null;
   }
 
-  private get hasWon(): boolean {
-    return this.children.every(({activated}) => activated ===  true);
-  }
-
-  onInitialize(engine: Engine): void {
+  onInitialize(engine: typeof game) {
     this.engine = engine;
     if (engine.randomizeTiles) {
       this.randomizeTiles(engine.activationChance);
     }
   }
 
-  private randomizeTiles(activationChance): void {
-    this.children
+  get hasWon(): boolean {
+    const tiles = this.children as [TileActor];
+    return tiles.every(({activated}) => activated ===  true);
+  }
+
+  randomizeTiles(activationChance: number) {
+    (this.children as [TileActor])
       .filter(({actorType}) => actorType === 'Tile')
       .forEach((tile) => {
         if (Math.random() < activationChance) {
@@ -49,7 +54,7 @@ export class Grid extends Actor {
       });
   }
 
-  public updateGrid(row, column): void {
+  updateGrid(row: number, column: number) {
     const neighbors = [
       [row - 1, column],
       [row + 1, column],
@@ -62,15 +67,16 @@ export class Grid extends Actor {
       column < this.gridSize.columns
     );
 
-    const toToggle = this.children.filter(({row: childRow, column: childColumn}) =>
-      neighbors.some(([neighborRow, neighborColumn]) =>
-        childRow === neighborRow && childColumn === neighborColumn)
+    const toToggle = (this.children as [TileActor])
+      .filter(({row: childRow, column: childColumn}) =>
+        neighbors.some(([neighborRow, neighborColumn]) =>
+          childRow === neighborRow && childColumn === neighborColumn)
     );
 
     toToggle.forEach((tile) => tile.toggleActivated());
     
     if (this.hasWon) {
-      this.engine.events.emit('winGame');
+      this.engine?.events.emit('winGame');
     }
   }
 }

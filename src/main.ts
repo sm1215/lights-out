@@ -1,16 +1,20 @@
 import { Engine, FadeInOut, CrossFade, Color } from "excalibur";
 import { loader } from "./resources";
-import { Win } from "./scenes/win";
-import { Play } from "./scenes/play";
+import { config } from "./config";
+import { Win } from "./scene/win";
+import { Play } from "./scene/play";
+import { Game } from "./interface/game";
 
-class Game extends Engine {
-    randomizeTiles = true;
-    activationChance = 0.4;
+class GameEngine extends Engine implements Game {
+    randomizeTiles;
+    activationChance;
     constructor() {
+      const {engineSize, randomizeTiles, activationChance} = config;
+
       super({
         canvasElementId: 'game',
-        width: 304,
-        height: 304,
+        width: engineSize.width,
+        height: engineSize.height,
         backgroundColor: new Color(61, 87, 113),
         scenes: {
           playGame: {
@@ -29,7 +33,11 @@ class Game extends Engine {
           }
         }
       });
+
+      this.randomizeTiles = randomizeTiles;
+      this.activationChance = activationChance;
     }
+
     initialize() {
       this.events.on('winGame', () => {
         this.goToScene('winGame');
@@ -45,5 +53,5 @@ class Game extends Engine {
     }
   }
 
-  export const game = new Game();
+  export const game = new GameEngine();
   game.initialize();

@@ -12,7 +12,7 @@ loader.logoWidth = 100;
 loader.logoHeight = 100;
 loader.logoPosition = vec(102, 70);
 loader.backgroundColor = '#3d5771';
-loader.loadingBarColor = new Color(210, 78, 10);
+loader.loadingBarColor = new Color(91, 34, 7);
 loader.loadingBarPosition = vec(105, 245);
 
 loader.startButtonFactory = () => {

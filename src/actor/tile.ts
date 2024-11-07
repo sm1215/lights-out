@@ -1,21 +1,19 @@
 import { Actor, Color, vec } from "excalibur";
-import { Resources } from "./resources";
+import { Resources } from "../resources";
+import { Tile } from "../interface/index";
+import { GridActor } from "./grid";
 
-export class Tile extends Actor {
+export class TileActor extends Actor {
   actorType = 'Tile';
   activated = false;
-  colors = {
-    on: new Color(75, 200, 75),
-    off: new Color(175, 50, 50)
-  };
-  row = null;
-  column = null;
-  candle = {
+  row;
+  column;
+  _candle = {
     on: this.graphics.add('candleOn', Resources.CandleOn.toSprite()),
     off: this.graphics.add('candleOff', Resources.CandleOff.toSprite())
   };
 
-  constructor({tileSize, row, column}) {
+  constructor({tileSize, row, column}: Tile) {
     const {width, height, margin} = tileSize;
 
     const x = ((width * column) + width / 2) + margin * (column + 1);
@@ -25,26 +23,24 @@ export class Tile extends Actor {
       pos: vec(x, y),
       width,
       height,
-      color: Color.Transparent
+    color: Color.Transparent
     });
-    this.color = this.colors.off;
     this.row = row;
     this.column = column;
-    this.graphics.add(this.candle.on);
-    this.graphics.add(this.candle.off);
-    this.graphics.use(this.candle.off);
+    this.graphics.add(this._candle.on);
+    this.graphics.add(this._candle.off);
+    this.graphics.use(this._candle.off);
   }
 
   onInitialize() {
     this.on('pointerup', () => {
       this.toggleActivated();
-      this.parent?.updateGrid(this.row, this.column);
+      (this.parent as GridActor)?.updateGrid(this.row, this.column);
     });
   }
 
   toggleActivated() {
     this.activated = !this.activated;
-    this.color = this.activated ? this.colors.on : this.colors.off;
-    this.graphics.use(this.activated ? this.candle.on : this.candle.off);
+    this.graphics.use(this.activated ? this._candle.on : this._candle.off);
   }
 }
