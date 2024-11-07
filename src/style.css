@@ -16,14 +16,14 @@
   button {
     pointer-events: all;
     cursor: pointer;
-    background: silver;
-    border: 2px solid brown;
-    color: brown;
+    background: #dcc899;
+    border: 2px solid #5b2207;
+    color: #5b2207;
   }
   button:hover {
-    background: brown;
-    border: 2px solid silver;
-    color: silver;
+    background: #5b2207;
+    border: 2px solid #dcc899;
+    color: #dcc899;
   }
   .start-button {
     font-size: 18px;
