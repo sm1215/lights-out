@@ -1,33 +1,46 @@
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: black;
+    background-color: #1e1b17;
   }
   #wrapper {
     position: relative;
     margin: 0 auto;
     width: 304px;
   }
-  .start-button {
+  #game,
+  .play-ui,
+  .win-ui {
+    box-sizing: border-box;
+    border: 1px solid #1e1b17;
+  }
+  button {
     pointer-events: all;
     cursor: pointer;
-    font-size: 18px;
-    line-height: 32px;
-    letter-spacing: 0.75px;
-    width: 86px;
     background: silver;
     border: 2px solid brown;
     color: brown;
   }
-  .start-button:hover {
+  button:hover {
     background: brown;
     border: 2px solid silver;
     color: silver;
   }
+  .start-button {
+    font-size: 18px;
+    line-height: 32px;
+    letter-spacing: 0.75px;
+    width: 86px;
+    position: relative;
+    top: -50px;
+  }
   .play-ui {
-    margin: 30px auto 20px auto;
+    padding: 6px 0 3px 0;
+    margin: 0 auto;
+    background: #5b2207;
+    border-bottom: none;
     h1, p{
       font-family: Arial;
-      color: white;
+      color: #dcc899;
       margin: 7px 3px;
       text-align: center;
     }
@@ -51,14 +64,14 @@
     position: absolute;
     text-align: center;
     padding-top: 100px;
+    background-color: #3d5771;
     h1 {
       font-family: Arial;
       font-size: 32px;
       line-height: 32px;
+      color: #dcc899;
     }
     button {
-      pointer-events: all;
-      cursor: pointer;
       font-size: 18px;
       line-height: 32px;
       letter-spacing: 0.75px;
